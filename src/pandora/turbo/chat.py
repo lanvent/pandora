@@ -18,6 +18,8 @@ class TurboGPT:
     TITLE_PROMPT = 'Generate a brief title for our conversation.'
     MAX_TOKENS = {
         'gpt-3.5-turbo': 4096,
+        'gpt-3.5-turbo-0613': 4096,
+        'gpt-3.5-turbo-16k': 16384,
         'gpt-4': 8192,
         'gpt-4-32k': 32768,
     }
@@ -79,11 +81,28 @@ class TurboGPT:
                     'slug': 'gpt-4-32k',
                     'max_tokens': self.FAKE_TOKENS['gpt-4-32k'] if fake_api else self.MAX_TOKENS['gpt-4-32k'],
                     'title': 'GPT-4 32K',
-                    'description': 'Same capabilities as the base gpt-4 mode but with 4x the context length',
+                    'description': 'Same capabilities as the base gpt-4 model but with 4x the context length',
                     'tags': []
                 }
             ]
         }
+        if not fake_api:
+            models['models'] += [
+                {
+                    'slug': 'gpt-3.5-turbo-0613',
+                    'max_tokens': self.MAX_TOKENS['gpt-3.5-turbo-0613'],
+                    'title': 'GPT-3.5-0613',
+                    'description': 'gpt-3.5-turbo 0613 version',
+                    'tags': []
+                },
+                {
+                    'slug': 'gpt-3.5-turbo-16k',
+                    'max_tokens': self.MAX_TOKENS['gpt-3.5-turbo-16k'],
+                    'title': 'GPT-3.5 16K',
+                    'description': 'Same capabilities as the base gpt-3.5-turbo model but with 4x the context length',
+                    'tags': []
+                }
+            ]
 
         if raw:
             return self.__wrap_response(models)
